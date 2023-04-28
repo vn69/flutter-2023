@@ -14,7 +14,7 @@ class TodoApp extends StatefulWidget {
 }
 
 class _TodoAppState extends State<TodoApp> {
-  final List<Todo> _todos = [];
+  List<Todo> _todos = [];
 
   void _addTodo() async {
     final newTodo = await Navigator.push(
@@ -45,35 +45,74 @@ class _TodoAppState extends State<TodoApp> {
   }
 
   void _toggleTodoAtIndex(int index) {
-    setState(() {
-      final todo = _todos[index];
-      _todos[index] = todo.copyWith(isCompleted: !todo.isCompleted);
-    });
+    final todo = _todos[index];
+    _todos[index] = todo.copyWith(isCompleted: !todo.isCompleted);
+    setState(() {});
+  }
+
+  List<Todo> getJobUncomplete() {
+    return _todos.where((todo) => !todo.isCompleted).toList();
+  }
+  List<Todo> getJobComplete() {
+    return _todos.where((todo) => todo.isCompleted).toList();
+  }
+
+  void _clearTodo() {
+    var jobs = getJobComplete();
+    if (jobs.isNotEmpty) {
+      _todos = getJobUncomplete();
+      Fluttertoast.showToast(
+          msg: "clear jobs successfully",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.TOP,
+          timeInSecForIosWeb: 3);
+      setState(() {});
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Todo List')),
-      body: ListView.builder(
-        itemCount: _todos.length,
-        itemBuilder: (context, index) {
-          final todo = _todos[index];
-          return CheckboxListTile(
-            title: Text(todo.title),
-            value: todo.isCompleted,
-            onChanged: (_) => _toggleTodoAtIndex(index),
-            secondary: IconButton(
-              icon: const Icon(Icons.delete),
-              onPressed: () async {
-                if (await confirm(context)) {
-                  return _deleteTodoAtIndex(index);
-                }
-                return print("cancel");
-              },
+      body: Container(
+        child: Column(
+          children: [
+            Expanded(
+              flex: 10,
+              child: ListView.builder(
+                itemCount: _todos.length,
+                itemBuilder: (context, index) {
+                  final todo = _todos[index];
+                  return CheckboxListTile(
+                    title: Text(todo.title),
+                    value: todo.isCompleted,
+                    onChanged: (_) => _toggleTodoAtIndex(index),
+                    secondary: IconButton(
+                      icon: const Icon(Icons.delete),
+                      onPressed: () async {
+                        if (await confirm(context)) {
+                          return _deleteTodoAtIndex(index);
+                        }
+                      },
+                    ),
+                  );
+                },
+              ),
             ),
-          );
-        },
+            Expanded(
+              flex: 1,
+              child: Visibility(
+                visible: getJobComplete().isNotEmpty,
+                child: TextButton(
+                  child: const Text('CLear'),
+                  onPressed: () {
+                    _clearTodo();
+                  },
+                ),
+              ),
+            )
+          ],
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _addTodo,
