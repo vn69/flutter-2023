@@ -44,13 +44,13 @@ class HomeScreen extends StatelessWidget {
               child: const Text('Counter Page Mobx'),
             ),
             const SizedBox(height: 10),
-            ElevatedButton(
-              onPressed: () => context.go('/todoappmobx'),
-              style: const ButtonStyle(
-                backgroundColor: MaterialStatePropertyAll<Color>(Colors.green),
-              ),
-              child: const Text('Todo App Mobx'),
-            ),
+            // ElevatedButton(
+            //   onPressed: () => context.go('/todoappmobx'),
+            //   style: const ButtonStyle(
+            //     backgroundColor: MaterialStatePropertyAll<Color>(Colors.green),
+            //   ),
+            //   child: const Text('Todo App Mobx'),
+            // ),
           ],
         ),
       ),
