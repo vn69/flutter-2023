@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:myapp_01/src/sample_feature/counterMobx.dart';
 import 'package:myapp_01/src/sample_feature/detail_screen.dart';
 import 'package:myapp_01/src/sample_feature/example.dart';
 import 'package:myapp_01/src/sample_feature/home.dart';
@@ -33,6 +34,18 @@ final GoRouter _router = GoRouter(
             return const TodoApp();
           },
         ),
+        GoRoute(
+          path: 'mobx_counter',
+          builder: (BuildContext context, GoRouterState state) {
+            return const CounterPage();
+          },
+        ),
+        // GoRoute(
+        //   path: 'todoappmobx',
+        //   builder: (BuildContext context, GoRouterState state) {
+        //     return const TodoAppMobx();
+        //   },
+        // ),
       ],
     ),
   ],

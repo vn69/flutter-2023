@@ -17,19 +17,19 @@ class _TodoAppState extends State<TodoApp> {
   List<Todo> _todos = [];
 
   void _addTodo() async {
-    final newTodo = await Navigator.push(
+    final newTitle = await Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => const AddTodoScreen()),
     );
 
-    if (newTodo != null) {
-      _todos.add(newTodo);
-      Fluttertoast.showToast(
-          msg: "job is added successfully",
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.TOP,
-          timeInSecForIosWeb: 3);
-    }
+    final newTodo = Todo(title: newTitle);
+    _todos.add(newTodo);
+
+    Fluttertoast.showToast(
+        msg: "job is added successfully",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.TOP,
+        timeInSecForIosWeb: 3);
 
     setState(() {});
   }
@@ -53,6 +53,7 @@ class _TodoAppState extends State<TodoApp> {
   List<Todo> getJobUncomplete() {
     return _todos.where((todo) => !todo.isCompleted).toList();
   }
+
   List<Todo> getJobComplete() {
     return _todos.where((todo) => todo.isCompleted).toList();
   }

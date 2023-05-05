@@ -20,8 +20,7 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
   void _submit() {
     final todoTitle = _textController.text.trim();
     if (todoTitle.isNotEmpty) {
-      final newTodo = Todo(title: todoTitle);
-      Navigator.pop(context, newTodo);
+      Navigator.pop(context, todoTitle);
     }
   }
 

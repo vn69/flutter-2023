@@ -1,53 +1,44 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:myapp_01/stores/counter.dart';
+
+final counter = Counter(); // Instantiate the store
 
 /// The details screen
-class Example extends StatefulWidget {
-  /// Constructs a [Example]
-  const Example({super.key});
+class CounterPage extends StatefulWidget {
+  const CounterPage({super.key});
 
   @override
-  State<Example> createState() => _ExampleState();
+  State<CounterPage> createState() => _CounterPageState();
 }
 
-class _ExampleState extends State<Example> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
-  void _decrementCounter() {
-    setState(() {
-      _counter--;
-    });
-  }
-
+class _CounterPageState extends State<CounterPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Example Screen')),
+      appBar: AppBar(title: const Text('Counter')),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text(
-              '$_counter',
-              style: const TextStyle(fontSize: 50),
+            Observer(
+              builder: (_) => Text(
+                '${counter.value}',
+                style: const TextStyle(fontSize: 50),
+              ),
             ),
             const SizedBox(height: 20),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 IconButton(
-                  onPressed: _decrementCounter,
+                  onPressed: counter.decrement,
                   tooltip: 'Decrement',
                   icon: const Icon(Icons.remove),
                 ),
                 const SizedBox(width: 20),
                 IconButton(
-                  onPressed: _incrementCounter,
+                  onPressed: counter.increment,
                   tooltip: 'Increment',
                   icon: const Icon(Icons.add),
                 ),

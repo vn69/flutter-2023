@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:myapp_01/src/sample_feature/toast_no_context.dart';
 
-
 /// The home screen
 class HomeScreen extends StatelessWidget {
   /// Constructs a [HomeScreen]
@@ -18,10 +17,10 @@ class HomeScreen extends StatelessWidget {
           children: <Widget>[
             ElevatedButton(
               onPressed: () => context.go('/details'),
-              child: const Text('Go to the Details screen'),
               style: const ButtonStyle(
                 backgroundColor: MaterialStatePropertyAll<Color>(Colors.green),
               ),
+              child: const Text('Go to the Details screen'),
             ),
             const SizedBox(height: 10),
             ElevatedButton(
@@ -31,23 +30,26 @@ class HomeScreen extends StatelessWidget {
             const SizedBox(height: 10),
             ElevatedButton(
               onPressed: () => context.go('/todoapp'),
-              child: const Text('Go to the Todo App screen'),
               style: const ButtonStyle(
                 backgroundColor: MaterialStatePropertyAll<Color>(Colors.green),
               ),
+              child: const Text('Go to the Todo App screen'),
             ),
             const SizedBox(height: 10),
             ElevatedButton(
-              // onPressed: () {},
-              onPressed: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => ToastNoContext(),
-                ));
-              },
-              child: const Text('Show toasts'),
+              onPressed: () => context.go('/mobx_counter'),
               style: const ButtonStyle(
                 backgroundColor: MaterialStatePropertyAll<Color>(Colors.green),
               ),
+              child: const Text('Counter Page Mobx'),
+            ),
+            const SizedBox(height: 10),
+            ElevatedButton(
+              onPressed: () => context.go('/todoappmobx'),
+              style: const ButtonStyle(
+                backgroundColor: MaterialStatePropertyAll<Color>(Colors.green),
+              ),
+              child: const Text('Todo App Mobx'),
             ),
           ],
         ),
